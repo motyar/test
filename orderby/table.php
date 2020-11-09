@@ -12,18 +12,20 @@ if (!$conn) {
 }
 echo "Connected successfully";
 // Create table
-$sql = "INSERT INTO MyFriend(firstname,lastname,email) 
-VALUES('PRADEEP', 'MOTYAR', 'pradeepmotyar@gmail.com')";
-$sql .= "INSERT INTO MyGuests (firstname, lastname, email)
-VALUES ('Mary', 'Moe', 'mary@example.com');";
-$sql .= "INSERT INTO MyGuests (firstname, lastname, email)
-VALUES ('Julie', 'Dooley', 'julie@example.com')";
-if ($conn->multi_query($sql) === TRUE) {
+$sql = "INSERT INTO MyFriend(firstname,lastname,email)";
+$result = $conn->query($sql);
+if($result->num_rows>0){
+	echo "<table><tr><th>ID</th><th>Name</th></tr>";
+  // output data of each row
+  while($row = $result->fetch_assoc()) {
+    echo "<tr><td>".$row["id"]."</td><td>".$row["firstname"]." ".$row["lastname"]."</td></tr>";
+  }
+echo"</table>";
+} else{
+	
 
-  echo "NEW RECORDS CREATED successfully" ;
-} else {
-  echo "Error : " .$sql . "<br>" .
-  $conn->error;
+  echo "0 result" ;
+
 }
 
 $conn->close();
