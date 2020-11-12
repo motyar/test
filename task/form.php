@@ -16,18 +16,19 @@ $dbconnect= mysqli_connect('localhost','root','','test');
  else{
 	 echo "Failed to insert";
  }
-
 $result =mysqli_query($dbconnection, "SELECT * FROM students");
-echo"<table borde=1px>
+
  
+  echo"<table borde=1px>";
 <tr>
-<td><form action=""  method ="POST"></td>
+<td><form action="" method ="POST"></td>
 <td>Name</td>
 <td><input type="text" name="name" ></td>
 </tr>
 <tr>
 <td><input type="submit" name="submit" value="Add"></td>
 </tr>;
+
 while($row = mysqli_fetch_array($result))
 {
 	echo "<tr>";
