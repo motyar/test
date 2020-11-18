@@ -1,0 +1,36 @@
+# git clone git@gitlab.com:prixest/test.git 
+stages:
+   - lint
+   - deploy
+   
+           
+lint:php:
+    stage: lint
+    image: sixlive/php-lint-fix
+    
+    script:
+        - echo $CI_COMMIT_REF_NAME
+        - php-cs-fixer fix --dry-run --diff 
+    only:
+        - master
+    
+deploy:
+    stage: deploy
+    image: tetraweb/php:7.1
+    before_script:
+        - mkdir -p ~/.ssh
+        - echo -e "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+        - chmod 600 ~/.ssh/id_rsa
+        - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
+        
+    script:
+        - ssh root@159.203.165.76 "
+          cd /root/www/base &&
+          git fetch --all &&
+          git reset --hard origin/$CI_COMMIT_REF_NAME &&
+          git pull origin $CI_COMMIT_REF_NAME
+          "
+            
+    only:
+        - develop
+        - master
