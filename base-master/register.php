@@ -23,6 +23,7 @@ if (isset($register)) {
 	<input type="email" placeholder="email" name="email" required><br><br>
 	<label for="password">Password:</label>
 	<input type="password" placeholder="password" name="password" required><br><br>
+	<input type ="city" placeholder="city" name="city" required><br><br>
 	<input type="submit" name="register" value="Register">
 </form>
 <a href="login.php"><button>Login</button></a>

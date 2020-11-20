@@ -10,21 +10,21 @@ $message = '';
 // code for delete
 if (isset($del)) {
     $id=intval($delid);
-    $db->Q("DELETE FROM `students` WHERE `id` = '$id'");
+    $db->Q("DELETE FROM `enteries` WHERE `id` = '$id'");
     header('location:dashboard.php');
 }
 // code for edit or update
 elseif (isset($edit)) {
     $display_button_name =  'update';
     $id = intval($edit);
-    $rows = $db->Q("SELECT * FROM `students` WHERE `id`='$id'");
+    $rows = $db->Q("SELECT * FROM `enteries` WHERE `id`='$id'");
     foreach ($rows as $row) {
         $entryvalue = $row['entry'];
     }
     if (isset($update)) {
-        $rows = $db->Q("SELECT * FROM `students` WHERE `entry`='$entry' AND `user_id`='$user_id'");
+        $rows = $db->Q("SELECT * FROM `enteries` WHERE `entry`='$entry' AND `user_id`='$user_id'");
         if (! $rows) {
-            $db->Q("UPDATE `students` SET `entry`='$entry' WHERE `id`='$id'");
+            $db->Q("UPDATE `enteries` SET `entry`='$entry' WHERE `id`='$id'");
             header('location:dashboard.php');
         } else {
             $message = 'This entry already exits';
@@ -33,9 +33,9 @@ elseif (isset($edit)) {
 }
 // code for add or insert
 elseif (isset($Add)) {
-    $rows = $db->Q("SELECT * FROM `students` WHERE `entry`='$entry' AND `user_id`='$user_id'");
+    $rows = $db->Q("SELECT * FROM `enteries` WHERE `entry`='$entry' AND `user_id`='$user_id'");
     if (! $rows) {
-        $db->Q("INSERT INTO `students`(`entry`,`user_id`) VALUES ('$entry','$user_id')");
+        $db->Q("INSERT INTO `enteries`(`entry`,`user_id`) VALUES ('$entry','$user_id')");
         $message = 'Added';
     } else {
         $message = 'This entry already exits';
@@ -65,7 +65,7 @@ elseif (isset($Add)) {
     		<th>Delete</th>
     	</tr>
 <?php
-   $rows = $db->Q("SELECT * FROM `students` WHERE `user_id`='$user_id'");
+   $rows = $db->Q("SELECT * FROM `enteries` WHERE `user_id`='$user_id'");
    foreach ($rows as $row) {
        $s_entry = ($row['entry']); ?>
 

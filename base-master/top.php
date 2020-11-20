@@ -8,6 +8,7 @@
     $db = new db($host, $database, $user, $password);
     $db->connect();
 
+
 // Cleanig data for mysql
     $_REQUEST = array_map([$db->res, 'real_escape_string'], $_REQUEST);
     extract($_REQUEST);
